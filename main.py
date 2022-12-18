@@ -1,8 +1,6 @@
 import itertools
 import random
 import json
-# First networkx library is imported
-# along with matplotlib
 import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -73,34 +71,7 @@ def greedyKnapsack(w, weights, values, n):
             res[arr[i].index]=1
             weightSum += arr[i].wei
     return res
-    """
-    ratio = []
-    index = []
-    res = [0]*n
-    for i in range(n):
-        index.append(i)
-        ratio.append(values[i]/weights[i])
 
-    #insertion sort
-    for i in range(1, n):
-        j = i
-        while j > 0 and ratio[j] >= ratio[j - 1]:
-            ratio[j], ratio[j - 1] = ratio[j - 1], ratio[j]
-            values[j], values[j - 1] = values[j - 1], values[j]
-            weights[j], weights[j - 1] = weights[j - 1], weights[j]
-            index[j], index[j - 1] = index[j - 1], index[j]
-            j -= 1
-    weightSum = 0
-    i = 0
-    print(values)
-    print(weights)
-    while i < n and weightSum + weights[i] < w:
-        weightSum += weights[i]
-        res[index[i]] = 1
-        i += 1
-
-    return res
-    """
 def knapsackBruteForce(w, weights, values,n):
     res = ""
     max = -1
@@ -155,20 +126,15 @@ def greedyTSP(dist,n):
     return route,tourLength(route,dist)
 
 def geneticAlgorithmTSP(distanceMatrix, populationSize, numGenerations):
-    # Initialize the population with random tours
     population = [random.sample(range(len(distanceMatrix)), len(distanceMatrix)) for _ in range(populationSize)]
 
-    # Evolve the population over the given number of generations
     for generation in range(numGenerations):
-        # Calculate the fitness of each tour
         fitness = [(1 / tourLength(tour, distanceMatrix), tour) for tour in population]
         fitness.sort(reverse=True)
 
-        # Select the top tours for reproduction
         num_elites = populationSize // 10
         elites = [tour for _, tour in fitness[:num_elites]]
 
-        # Perform crossover and mutation on the rest of the population
         offspring = []
         while len(offspring) < populationSize - num_elites:
             parent1, parent2 = random.sample(elites, 2)
@@ -176,14 +142,11 @@ def geneticAlgorithmTSP(distanceMatrix, populationSize, numGenerations):
             child = mutate(child)
             offspring.append(child)
 
-        # Replace the current population with the new one
         population = elites + offspring
 
-    # Return the best tour found
     return min(population, key=lambda x: tourLength(x, distanceMatrix)),tourLength(min(population, key=lambda x: tourLength(x, distanceMatrix)),distanceMatrix)
 
 def crossover(tour1, tour2):
-    # Perform crossover by combining sections of the two tours
     start = random.randint(0, len(tour1) - 1)
     end = random.randint(start, len(tour1))
     new_tour = tour1[start:end]
@@ -193,13 +156,11 @@ def crossover(tour1, tour2):
     return new_tour
 
 def mutate(tour):
-    # Perform mutation by swapping two cities in the tour
     i, j = random.sample(range(len(tour)), 2)
     tour[i], tour[j] = tour[j], tour[i]
     return tour
 
 def tourLength(tour, distance_matrix):
-    # Calculate the length of the tour using the distance matrix
     length = 0
     for i in range(len(tour)):
         length += distance_matrix[tour[i]][tour[(i + 1) % len(tour)]]
@@ -209,14 +170,12 @@ def generateValues(n,valMin,valMax):
     values = [0]*n
     for i in range(n):
         values[i] = random.randint(valMin,valMax)
-        #values[i] = round(random.SystemRandom().uniform(valMin, valMax), 2)
     return values
 
 def generateWeights(n, weiMin, weiMax):
     weights = [0] * n
     for i in range(n):
         weights[i] = random.randint(weiMin,weiMax)
-        #weights[i] = round(random.SystemRandom().uniform(weiMin, weiMax), 2)
     return weights
 
 def generateProducts(n, labels, products):
@@ -260,7 +219,6 @@ def dataFromJson(filename):
     return values,weights,available
 
 dataFromJson("data.json")
-# Driver code
 G = GraphVisualization()
 G.addEdge(1, 2)
 G.addEdge(1, 4)
