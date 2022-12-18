@@ -1,0 +1,5 @@
+{
+    "values" : [8, 9, 3, 3, 10, 10, 10, 6, 6, 4],
+    "weights" : [5, 4, 2, 4, 5, 3, 5, 2, 4, 4],
+    "available" : [["Rękawice jednorazowe", "Przemysłówka"], ["Woda", "Napoje"], ["Coca cola", "Napoje"], ["Cif", "Chemia"], ["Banan", "Owoce i warzywa"], ["Rękawice jednorazowe", "Przemysłówka"], ["Sok jabłkowy", "Napoje"], ["Śmietana", "Nabiał"], ["Babka piaskowa", "Piekarnia i cukiernia"], ["Płyn do mycia naczyń", "Chemia"]]
+}
